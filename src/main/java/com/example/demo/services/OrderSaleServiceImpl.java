@@ -84,6 +84,8 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 		reposOrderSale.deleteById(id);
 				
 	}
+	////
+	/////
 	//  calcul de la commande
 	/*@Override
 	public float calculCommande(int numero)
