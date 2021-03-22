@@ -30,6 +30,8 @@ public class InvoiceEntiy {
 	private String description;
 	
 	
+	
+	
 	@OneToOne(mappedBy = "invoice",cascade = CascadeType.REMOVE)
 	private OrderSaleEntity orderSale;
 	
