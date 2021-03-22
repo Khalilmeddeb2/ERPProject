@@ -12,7 +12,7 @@ public class OrderSaleDto {
 
 	private int number;
     private LocalDate date;
-    private float totalPrice;
+    //private float totalPrice;
     
     private CustomerDto customer;
     
