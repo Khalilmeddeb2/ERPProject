@@ -12,6 +12,6 @@ public interface OrderSaleService {
     OrderSaleDto modifyOrderSale(int id, OrderSaleDto OrderSale);
     void deleteOrderSaleById(int id);
     // methode de calcul de commande 
-    /*float calculCommande(int numero);*/
+    float calculCommande(int numero);
 
 }
