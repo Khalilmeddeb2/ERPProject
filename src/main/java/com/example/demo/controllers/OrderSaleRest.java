@@ -49,12 +49,12 @@ public class OrderSaleRest {
         public OrderSaleDto modifyOrderSale(@PathVariable("id") int id,@RequestBody OrderSaleDto order) {
             return    service.modifyOrderSale(id, order);
             }
-     /*
-     // total de la commande 
-     @GetMapping("/total/{id}")
+     
+     // prix total de la commande 
+     @GetMapping("/totalPriceOrderSale/{id}")
      public float calculCommande(@PathVariable("id") int id) {
     	 return service.calculCommande(id);
     	 
-     }*/
+     }
 
 }
