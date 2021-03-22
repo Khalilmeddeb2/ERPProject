@@ -35,7 +35,7 @@ public class OrderSaleEntity {
 	/*@ManyToOne
 	private UserEntity user;*/
 	
-	@OneToOne
+	@OneToOne //(cascade = CascadeType.REMOVE)
 	private InvoiceEntiy invoice;
 	
 	@OneToMany(mappedBy = "orderSale",cascade = CascadeType.REMOVE)
