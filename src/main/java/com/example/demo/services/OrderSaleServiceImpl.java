@@ -2,8 +2,6 @@ package com.example.demo.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +44,7 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 		InvoiceEntiy invoiceEntity = entity.getInvoice();
 		InvoiceEntiy invoiceEntityInBd =reposInvoice.save(invoiceEntity);
 		entity.setInvoice(invoiceEntityInBd);
+		entity.setTotalPrice(calculCommande(entity.getNumber()));
 		
 		OrderSaleEntity newEntity= reposOrderSale.save(entity);
 
@@ -72,7 +71,7 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 	@Override
 	public OrderSaleDto modifyOrderSale(int id, OrderSaleDto OrderSale) {
             OrderSaleEntity entity=reposOrderSale.findById(id).get();
-	        entity.setTotalPrice(OrderSale.getTotalPrice());
+	       // entity.setTotalPrice(OrderSale.getTotalPrice());
 	        entity.setDate(OrderSale.getDate());
 	        OrderSaleEntity newEntity=reposOrderSale.save(entity);
 	        return mapper.map(newEntity, OrderSaleDto.class);
@@ -86,8 +85,8 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 	}
 	////
 	/////
-	//  calcul de la commande
-	/*@Override
+	 //calcul de la commande
+	@Override
 	public float calculCommande(int numero)
 	{
 		float somme = 0;
@@ -99,18 +98,17 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 			     int res = line.getProduct().getQuantite()-line.getQt();
 			     line.getProduct().setQuantite(res);
 			     reposLineSale.save(line);
+			     
 			    }
 			else
 			    {
-				throw new ArithmeticException("imossible de passer une commande ");
+				throw new ArithmeticException("unable to place an order");
+
 			    }
-				
-			
 		}
 		orderEntity.setTotalPrice(somme);
-		reposOrderSale.save(orderEntity);
 		return somme;
 		
-	}*/
+	}
 
 }
