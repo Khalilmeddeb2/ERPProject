@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.ProductDto;
 import com.example.demo.models.CategoryEntity;
+import com.example.demo.models.LineSaleEntity;
 import com.example.demo.models.ProductEntity;
 import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.repositories.ProductRepository;
@@ -88,6 +89,32 @@ public class ProductServiceImpl implements ProductService {
 	public void deleteProductyById(int id) {
 		reposProduct.deleteById(id);
 
+	}
+
+	@Override
+	public String getProductlePlusAchete() {
+		int max =0;
+		LineSaleEntity lineSaleMaxQt =null;
+		ProductEntity productPlusAchete =null;
+	  List<ProductEntity> products=reposProduct.findAll();
+	  for (ProductEntity product : products) {
+          for(LineSaleEntity line : product.getLineSales())
+          {
+        	 if(line.getQt()>max) {
+        		 max=line.getQt();
+        		 lineSaleMaxQt=line;
+        		 productPlusAchete =product;
+        	 }
+          }
+          
+	}
+		return productPlusAchete.getName();
+	}
+
+	@Override
+	public int getNumberProducts() {
+		 List<ProductEntity> products=reposProduct.findAll();
+	     return products.size();
 	}
 
 }
