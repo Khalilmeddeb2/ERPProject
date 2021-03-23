@@ -58,8 +58,12 @@ public class InvoiceRest {
 	@PutMapping("/{id}")
 	public InvoiceDto modifyProduct(@PathVariable("id") int id,@RequestBody InvoiceDto invoice) {
 	    return    service.modifyInvoice(id, invoice);}
-
-	 
+	
+	
+	@GetMapping("/TotalInvoice")
+	public int getNumberInvoices() {
+	  return service.getNumberInvoices();
+	}
 
 
 	}
