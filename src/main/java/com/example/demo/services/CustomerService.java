@@ -10,4 +10,10 @@ public interface CustomerService {
 	CustomerDto getCustomerById(int id);
 	CustomerDto modifyCustomer(int id, CustomerDto customer);
 	void deleteCustomerById(int id);
+	
+	//
+	
+	String getClientFidele();
+	
+	int getNumberclients();
 }
