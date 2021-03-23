@@ -77,6 +77,14 @@ public class InvoiceServiceImpl implements InvoiceService{
 	        reposInvoice.deleteById(id);
 	    }
 
+
+
+		@Override
+		public int getNumberInvoices() {
+			List<InvoiceEntiy> invoices = reposInvoice.findAll();
+			return invoices.size();
+		}
+
 	 
 
 	}
