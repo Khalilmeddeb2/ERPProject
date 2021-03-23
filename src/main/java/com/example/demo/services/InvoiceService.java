@@ -11,5 +11,7 @@ public interface InvoiceService {
     InvoiceDto getInvoiceById(int id);
     InvoiceDto modifyInvoice(int id, InvoiceDto category);
     void deleteInvoiceById(int id);
-
+     
+     
+    int getNumberInvoices();
 }
