@@ -44,7 +44,7 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 		InvoiceEntiy invoiceEntity = entity.getInvoice();
 		InvoiceEntiy invoiceEntityInBd =reposInvoice.save(invoiceEntity);
 		entity.setInvoice(invoiceEntityInBd);
-		entity.setTotalPrice(calculCommande(entity.getNumber()));
+		//entity.setTotalPrice(calculCommande(entity.getNumber()));
 		
 		OrderSaleEntity newEntity= reposOrderSale.save(entity);
 
