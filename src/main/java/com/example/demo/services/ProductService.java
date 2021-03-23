@@ -12,4 +12,8 @@ public interface ProductService {
 	ProductDto modifyProduct(int id, ProductDto product);
 	void deleteProductyById(int id);
 	
+	String getProductlePlusAchete();
+	
+	int getNumberProducts();
+	
 }
