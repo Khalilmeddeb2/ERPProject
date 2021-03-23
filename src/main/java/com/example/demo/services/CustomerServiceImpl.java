@@ -91,4 +91,29 @@ public class CustomerServiceImpl implements CustomerService {
 
 	}
 
+	@Override
+	public String getClientFidele() {
+		int max=0;
+		CustomerEntity cutomerPF = null;
+		CustomerDto customerPFDto = null;
+		List<CustomerEntity> customers =reposCustomer.findAll();
+		for (CustomerEntity customer : customers) {
+			if(customer.getSalesOrders().size()>max) {
+				max = customer.getSalesOrders().size();
+				cutomerPF = customer;	
+			}
+			
+		}
+		
+		customerPFDto = mapper.map(cutomerPF, CustomerDto.class);
+		
+		return "le client le plus fidele est "+customerPFDto.getAddress();
+	}
+
+	@Override
+	public int getNumberclients() {
+		List<CustomerEntity> customers =reposCustomer.findAll();
+		return customers.size();
+	}
+
 }
