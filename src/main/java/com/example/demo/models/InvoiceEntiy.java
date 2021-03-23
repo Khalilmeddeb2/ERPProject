@@ -31,7 +31,6 @@ public class InvoiceEntiy {
 	
 	
 	
-	
 	@OneToOne(mappedBy = "invoice",cascade = CascadeType.REMOVE)
 	private OrderSaleEntity orderSale;
 	
