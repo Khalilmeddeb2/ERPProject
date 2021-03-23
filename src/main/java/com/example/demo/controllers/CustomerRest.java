@@ -51,4 +51,15 @@ public class CustomerRest {
 		return service.modifyCustomer(id, customer);
 	}
 	
+	@GetMapping("/plusFidele")
+	public String getClientFidele() {
+		return service.getClientFidele();
+	}
+	
+	@GetMapping("/NumberCustomers")
+	public int getNumberclients()
+	{
+		return service.getNumberclients();
+	}
+	
 }
