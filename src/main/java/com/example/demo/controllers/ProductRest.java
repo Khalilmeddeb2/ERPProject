@@ -54,5 +54,15 @@ public class ProductRest {
     @PutMapping("/{id}")
 	public ProductDto modifyProduct(@PathVariable("id") int id,@RequestBody ProductDto product) {
 	    return	service.modifyProduct(id, product);}
+    
+    @GetMapping("/LeplusAchete")
+    public String getProductlePlusAchete() {
+    	return service.getProductlePlusAchete();
+    }
+    
+    @GetMapping("/NumberProducts")
+    public int getNumberProducts() {
+    	return service.getNumberProducts();
+    }
 	
 }
