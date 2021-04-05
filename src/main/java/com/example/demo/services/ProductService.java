@@ -12,8 +12,10 @@ public interface ProductService {
 	ProductDto modifyProduct(int id, ProductDto product);
 	void deleteProductyById(int id);
 	
+	// le produit le plus achete
 	String getProductlePlusAchete();
 	
-	int getNumberProducts();
+	// le nombre des produits dans le stock
+	int getTotalNumberProducts();
 	
 }
