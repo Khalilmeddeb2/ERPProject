@@ -60,9 +60,11 @@ public class InvoiceRest {
 	    return    service.modifyInvoice(id, invoice);}
 	
 	
+	
+	 // le nombre des factures dans le stock
 	@GetMapping("/TotalInvoice")
 	public int getNumberInvoices() {
-	  return service.getNumberInvoices();
+	  return service.getTotalNumberInvoices();
 	}
 
 
