@@ -12,6 +12,6 @@ public interface InvoiceService {
     InvoiceDto modifyInvoice(int id, InvoiceDto category);
     void deleteInvoiceById(int id);
      
-     
-    int getNumberInvoices();
+    // le nombre des factures dans le stock
+    int getTotalNumberInvoices();
 }
