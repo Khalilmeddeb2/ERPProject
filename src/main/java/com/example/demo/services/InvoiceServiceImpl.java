@@ -78,9 +78,9 @@ public class InvoiceServiceImpl implements InvoiceService{
 	    }
 
 
-
+	    // le nombre des factures dans le stock
 		@Override
-		public int getNumberInvoices() {
+		public int getTotalNumberInvoices() {
 			List<InvoiceEntiy> invoices = reposInvoice.findAll();
 			return invoices.size();
 		}
