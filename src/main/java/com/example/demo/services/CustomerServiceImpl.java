@@ -91,6 +91,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 	}
 
+	
+	// le client le plus fidele
 	@Override
 	public String getClientFidele() {
 		int max=0;
@@ -109,9 +111,10 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return "le client le plus fidele est "+customerPFDto.getAddress();
 	}
-
+	
+	// le nombre des client dans le stock 
 	@Override
-	public int getNumberclients() {
+	public int getTotalNumberclients() {
 		List<CustomerEntity> customers =reposCustomer.findAll();
 		return customers.size();
 	}
