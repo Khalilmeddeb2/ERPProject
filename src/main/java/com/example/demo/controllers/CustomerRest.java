@@ -51,15 +51,19 @@ public class CustomerRest {
 		return service.modifyCustomer(id, customer);
 	}
 	
+	
+	// le client le plus fidele
 	@GetMapping("/plusFidele")
 	public String getClientFidele() {
 		return service.getClientFidele();
 	}
 	
+	
+	// le nombre des client dans le stock 
 	@GetMapping("/NumberCustomers")
 	public int getNumberclients()
 	{
-		return service.getNumberclients();
+		return service.getTotalNumberclients();
 	}
 	
 }
