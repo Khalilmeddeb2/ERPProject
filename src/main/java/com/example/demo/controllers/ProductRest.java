@@ -55,14 +55,16 @@ public class ProductRest {
 	public ProductDto modifyProduct(@PathVariable("id") int id,@RequestBody ProductDto product) {
 	    return	service.modifyProduct(id, product);}
     
+	// le produit le plus achete
     @GetMapping("/LeplusAchete")
     public String getProductlePlusAchete() {
     	return service.getProductlePlusAchete();
     }
     
+	// le nombre des produits dans le stock
     @GetMapping("/NumberProducts")
     public int getNumberProducts() {
-    	return service.getNumberProducts();
+    	return service.getTotalNumberProducts();
     }
 	
 }
