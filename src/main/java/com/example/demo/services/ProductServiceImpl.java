@@ -91,10 +91,12 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
+	
+	// le produit le plus achete
 	@Override
 	public String getProductlePlusAchete() {
 		int max =0;
-		LineSaleEntity lineSaleMaxQt =null;
+		//LineSaleEntity lineSaleMaxQt =null;
 		ProductEntity productPlusAchete =null;
 	  List<ProductEntity> products=reposProduct.findAll();
 	  for (ProductEntity product : products) {
@@ -102,7 +104,7 @@ public class ProductServiceImpl implements ProductService {
           {
         	 if(line.getQt()>max) {
         		 max=line.getQt();
-        		 lineSaleMaxQt=line;
+        		 //lineSaleMaxQt=line;
         		 productPlusAchete =product;
         	 }
           }
@@ -112,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int getNumberProducts() {
+	public int getTotalNumberProducts() {
 		 List<ProductEntity> products=reposProduct.findAll();
 	     return products.size();
 	}
