@@ -11,9 +11,10 @@ public interface CustomerService {
 	CustomerDto modifyCustomer(int id, CustomerDto customer);
 	void deleteCustomerById(int id);
 	
-	//
-	
+	// le client le plus fidele
 	String getClientFidele();
 	
-	int getNumberclients();
+	
+	// le nombre des client dans le stock 
+	int getTotalNumberclients();
 }
