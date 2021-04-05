@@ -85,7 +85,7 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 	}
 	////
 	/////
-	 //calcul de la commande
+	 //montant de la commande
 	@Override
 	public float calculCommande(int numero)
 	{
