@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,20 @@ public class OrderSaleRest {
     	 return service.calculCommande(id);
     	 
      }
-
+     
+     // le revenu des  ventes des produits dans le stock par periode
+     @GetMapping("/revenueParMois/{mois}")
+     public float getRevenuParMois(@PathVariable("mois") String mois) {
+    	 return service.getRevenuParMois(mois);
+     }
+     
+     
+     // le revenue des ventes des produits dans le stock par periode
+     @GetMapping("/revenueParPeriode/{dateBegin}/{dateEnd}")
+     public float getRevenuParPeriode(@PathVariable("dateBegin") String dBegin,@PathVariable("dateEnd") String dEnd) {
+     	LocalDate dateBegin = LocalDate.parse(dBegin);
+ 		LocalDate dateEnd = LocalDate.parse(dEnd);
+ 		return service.getRevenuParPeriode(dateBegin, dateEnd);
+     	
+     }
 }
