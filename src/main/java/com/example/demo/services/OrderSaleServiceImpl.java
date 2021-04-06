@@ -1,11 +1,11 @@
 package com.example.demo.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.dto.OrderSaleDto;
 import com.example.demo.models.CustomerEntity;
 import com.example.demo.models.InvoiceEntiy;
@@ -110,5 +110,44 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 		return somme;
 		
 	}
+    
+	//le revenu les ventes des produits dans le stock
+	@Override
+	public float getRevenuParMois(String mois) {
+		List<OrderSaleEntity> orders = reposOrderSale.findAll();
+		float revenu = 0;
+		for (OrderSaleEntity orderSaleEntity : orders) {
+			if (orderSaleEntity.getDate().toString().substring(5, 7).equals(mois)) {
+				for(LineSaleEntity line : orderSaleEntity.getLineSales()) {
+				
+					revenu=(float) (revenu+((line.getProduct().getPriceVente())-(line.getProduct().getPriceAchat())) * line.getQt()
+						);
+				}
+			}
+			
+		}
+		return revenu;
+		
+	}
+	  // le revenue des ventes des produits dans le stock par periode
+	  @Override
+	 	public float getRevenuParPeriode(LocalDate dateBegin, LocalDate dateEnd) {
+	 		List<OrderSaleEntity>orders=reposOrderSale.findAll();
+	 		float revenu=0;
+	 		for (OrderSaleEntity order : orders) {
+	 			if(order.getDate().isAfter(dateBegin) && order.getDate().isBefore(dateEnd)) {
+	 				for(LineSaleEntity line : order.getLineSales()) {
+	 					
+						revenu=(float) (revenu+((line.getProduct().getPriceVente())-(line.getProduct().getPriceAchat())) * line.getQt()
+							);
+					}
+	 				
+	 				
+	 			}
+	 		}
+	 		
+	 		
+	 		return revenu;
+	 	}
 
 }
