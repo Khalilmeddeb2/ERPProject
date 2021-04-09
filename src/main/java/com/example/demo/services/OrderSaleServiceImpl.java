@@ -97,7 +97,7 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 			     somme += line.getQt()*line.getProduct().getPriceVente();
 			     int res = line.getProduct().getQuantite()-line.getQt();
 			     line.getProduct().setQuantite(res);
-			     reposLineSale.save(line);
+			     //reposLineSale.save(line);
 			     
 			    }
 			else
