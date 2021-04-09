@@ -21,15 +21,18 @@ public class LineSaleServiceImpl implements LineSaleService {
 	   private LineSaleRepository reposLineSale;
 	   private ProductRepository reposProduct;
 	   private OrderSaleRepository reposOrderSale;
-	
+	   private OrderSaleService orderService;
 	   private ModelMapper mapper;
 
-	   @Autowired
-		public LineSaleServiceImpl(LineSaleRepository reposLineSale, ProductRepository reposProduct, OrderSaleRepository reposOrderSale ,ModelMapper mapper) {
+	  
+
+		public LineSaleServiceImpl(LineSaleRepository reposLineSale, ProductRepository reposProduct,
+			OrderSaleRepository reposOrderSale, OrderSaleService orderService, ModelMapper mapper) {
 		super();
 		this.reposLineSale = reposLineSale;
 		this.reposProduct = reposProduct;
 		this.reposOrderSale = reposOrderSale;
+		this.orderService = orderService;
 		this.mapper = mapper;
 	}
 
@@ -40,7 +43,10 @@ public class LineSaleServiceImpl implements LineSaleService {
 			OrderSaleEntity entityOrdersale = reposOrderSale.findById(numberOrderSale).get();
 			entityLineSale.setProduct(entityProduct);
 			entityLineSale.setOrderSale(entityOrdersale);
+			entityOrdersale.getLineSales().add(entityLineSale);
 			LineSaleEntity newEntityLineSale = reposLineSale.save(entityLineSale);
+			entityLineSale.getOrderSale().setTotalPrice(orderService.calculCommande(numberOrderSale));
+			reposOrderSale.save(entityOrdersale);
 			return mapper.map(newEntityLineSale, LineSaleDto.class);
 		}
 
