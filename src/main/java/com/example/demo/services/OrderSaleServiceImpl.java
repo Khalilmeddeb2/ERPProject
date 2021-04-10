@@ -16,6 +16,13 @@ import com.example.demo.repositories.InvoiceRepository;
 import com.example.demo.repositories.LineSaleRepository;
 import com.example.demo.repositories.OrderSaleRepository;
 
+import com.nexmo.client.NexmoClient;
+import com.nexmo.client.sms.MessageStatus;
+import com.nexmo.client.sms.SmsSubmissionResponse;
+import com.nexmo.client.sms.messages.TextMessage;
+
+import org.apache.http.client.methods.*;
+
 @Service
 public class OrderSaleServiceImpl implements OrderSaleService{
 
@@ -25,6 +32,9 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 	private LineSaleRepository reposLineSale;
     private ModelMapper mapper;
     
+    
+    @Autowired
+    EmailService emailService;
     
     @Autowired
 	public OrderSaleServiceImpl(OrderSaleRepository reposOrderSale, CustomerRepository reposCustomer, InvoiceRepository reposInvoice, LineSaleRepository reposLineSale , ModelMapper mapper) {
@@ -47,7 +57,32 @@ public class OrderSaleServiceImpl implements OrderSaleService{
 		//entity.setTotalPrice(calculCommande(entity.getNumber()));
 		
 		OrderSaleEntity newEntity= reposOrderSale.save(entity);
-
+		
+		//Sending e-mail
+//		emailService.sendMailOrder("khalilmeddeb2@gmail.com", "Commande");
+		emailService.sendMailOrder(custEntity.getEmail(), "Commande");
+		
+		
+		//Sending SMS
+		
+		/*NexmoClient client = NexmoClient.builder().apiKey("b0e8d5d6").apiSecret("R41T3arDUApUs34K").build();
+		  TextMessage message = new TextMessage("Commande",
+		                   "+21650944946",
+		                    "Une commande vient d'etre passee"
+		            );
+		  
+		  try {
+			  SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+			  if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
+			    System.out.println("Message sent successfully.");
+			} else {
+			    System.out.println("Message failed with error: " + response.getMessages().get(0).getErrorText());
+			}
+		  }
+		  catch(Exception e) {}
+			
+		*/
+		
 		return mapper.map(newEntity, OrderSaleDto.class);
 	}
 
