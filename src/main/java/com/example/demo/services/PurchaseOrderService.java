@@ -9,5 +9,6 @@ public interface PurchaseOrderService {
 	PurchaseOrderDto getPurchaseOrderById(int id);
 	PurchaseOrderDto modifyPurchaseOrder(int id, PurchaseOrderDto purchaseOrder);
 	PurchaseOrderDto deletePurchaseOrderById(int id);
+	public float calculOrder(int num);
 
 }
