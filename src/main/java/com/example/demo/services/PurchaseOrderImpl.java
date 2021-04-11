@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.ProviderDto;
 import com.example.demo.dto.PurchaseOrderDto;
+import com.example.demo.models.BuyLineEntity;
 import com.example.demo.models.InvoiceEntiy;
 import com.example.demo.models.ProviderEntity;
 import com.example.demo.models.PurchaseOrderEntity;
 import com.example.demo.repositories.InvoiceRepository;
+import com.example.demo.repositories.LineBuyRepository;
 import com.example.demo.repositories.ProviderRepository;
 import com.example.demo.repositories.PurchaseOrderRepository;
 @Service
@@ -22,17 +24,19 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
 	private PurchaseOrderRepository repoPurchaseOrder;
 	private ProviderRepository repoProvider;
 	private InvoiceRepository repoInvoice;
+	private LineBuyRepository repoLineBuy;
 	
 	private ModelMapper mapper;
 	
 	
 	@Autowired
 	public PurchaseOrderImpl (PurchaseOrderRepository repoPurchaseOrder,ProviderRepository repoProvider,
-			InvoiceRepository repoInvoice,ModelMapper mapper)
+			InvoiceRepository repoInvoice, LineBuyRepository repoLineBuy,ModelMapper mapper)
 	{
 		this.repoPurchaseOrder=repoPurchaseOrder;
 		this.repoProvider=repoProvider;
 		this.repoInvoice=repoInvoice;
+		this.repoLineBuy=repoLineBuy;
 		this.mapper=mapper;
 	}
 	@Override
@@ -103,6 +107,35 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
 		repoPurchaseOrder.deleteById(id);
 		return entity;
 
+	}
+	@Override
+	public float calculOrder(int num) {
+		float sumOrder= 0;
+		
+		PurchaseOrderEntity orderEntity = repoPurchaseOrder.findById(num).get();
+		
+		for(BuyLineEntity line : orderEntity.getLineBuys())
+		{
+			if(line.getProduct().getQuantite() > line.getQt())
+			{
+				sumOrder += line.getProduct().getPriceAchat()*line.getQt();
+				
+				int newQt = line.getProduct().getQuantite()+line.getQt();
+				
+				line.getProduct().setQuantite(newQt);
+				
+				repoLineBuy.save(line);
+				
+			}
+			
+			else
+			{
+				throw new ArithmeticException("unable to place an order");
+			}
+		}
+		
+		orderEntity.setTotalPrice(sumOrder);
+		return sumOrder;
 	}
 
 }
