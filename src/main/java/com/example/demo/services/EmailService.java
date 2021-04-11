@@ -27,7 +27,7 @@ public class EmailService {
 	    public void sendMailOrder(String to, String subject) 
 	    {
 	        MimeMessage msg = mailSender.createMimeMessage();
-	        String body = "<center><h1>Commande ajoutee</h1></center>";
+	        String body = "votre commande a etait passe";
 	        		
 	        MimeMessageHelper helper;
 			try {
