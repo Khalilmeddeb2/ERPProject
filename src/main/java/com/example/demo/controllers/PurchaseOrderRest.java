@@ -53,5 +53,11 @@ public class PurchaseOrderRest {
 		return service.deletePurchaseOrderById(id);
 	}
 	
+	@GetMapping("/totalPricePurchaseOrder/{num}")
+	public float calculOrder(@PathVariable("num") int num)
+	{
+		return service.calculOrder(num);
+	}
+	
 
 }
