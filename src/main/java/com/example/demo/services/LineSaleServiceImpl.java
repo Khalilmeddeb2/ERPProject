@@ -11,6 +11,7 @@ import com.example.demo.dto.LineSaleDto;
 import com.example.demo.models.LineSaleEntity;
 import com.example.demo.models.OrderSaleEntity;
 import com.example.demo.models.ProductEntity;
+import com.example.demo.repositories.InvoiceRepository;
 import com.example.demo.repositories.LineSaleRepository;
 import com.example.demo.repositories.OrderSaleRepository;
 import com.example.demo.repositories.ProductRepository;
@@ -21,17 +22,22 @@ public class LineSaleServiceImpl implements LineSaleService {
 	   private LineSaleRepository reposLineSale;
 	   private ProductRepository reposProduct;
 	   private OrderSaleRepository reposOrderSale;
+	   private InvoiceRepository reposInvoice;
 	   private OrderSaleService orderService;
 	   private ModelMapper mapper;
 
 	  
-
+      
+		
+        @Autowired
 		public LineSaleServiceImpl(LineSaleRepository reposLineSale, ProductRepository reposProduct,
-			OrderSaleRepository reposOrderSale, OrderSaleService orderService, ModelMapper mapper) {
+			OrderSaleRepository reposOrderSale, InvoiceRepository reposInvoice, OrderSaleService orderService,
+			ModelMapper mapper) {
 		super();
 		this.reposLineSale = reposLineSale;
 		this.reposProduct = reposProduct;
 		this.reposOrderSale = reposOrderSale;
+		this.reposInvoice = reposInvoice;
 		this.orderService = orderService;
 		this.mapper = mapper;
 	}
@@ -46,6 +52,8 @@ public class LineSaleServiceImpl implements LineSaleService {
 			entityOrdersale.getLineSales().add(entityLineSale);
 			LineSaleEntity newEntityLineSale = reposLineSale.save(entityLineSale);
 			entityLineSale.getOrderSale().setTotalPrice(orderService.calculCommande(numberOrderSale));
+			entityLineSale.getOrderSale().getInvoice().setTotPayments(entityLineSale.getOrderSale().getTotalPrice());
+			reposInvoice.save(entityLineSale.getOrderSale().getInvoice());
 			reposOrderSale.save(entityOrdersale);
 			return mapper.map(newEntityLineSale, LineSaleDto.class);
 		}
