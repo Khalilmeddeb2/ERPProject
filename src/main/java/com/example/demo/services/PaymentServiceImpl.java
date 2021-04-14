@@ -36,9 +36,17 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		PaymentEntity entity=mapper.map(payment, PaymentEntity.class);
 		InvoiceEntiy invoiceEntity=reposInvoice.findById(id).get();
-		entity.setInvoice(invoiceEntity);
-		PaymentEntity newEntity=reposPayement.save(entity);
-		return mapper.map(newEntity, PaymentDto.class);
+		if(invoiceEntity.getTotPayments() >= entity.getMontant()) {
+			invoiceEntity.setTotPayments(invoiceEntity.getTotPayments()-entity.getMontant());
+			entity.setInvoice(invoiceEntity);
+		reposPayement.save(entity);
+		}
+		else
+		{
+			throw new NoSuchElementException("payment with this montant it is impossible");
+		}
+		
+		return mapper.map(entity, PaymentDto.class);
 		
 	}
 
