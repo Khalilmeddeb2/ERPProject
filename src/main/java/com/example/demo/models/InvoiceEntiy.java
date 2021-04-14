@@ -28,6 +28,7 @@ public class InvoiceEntiy {
 	private int number;
 	private LocalDate date;
 	private String description;
+	private double totPayments;
 	
 	
 	
